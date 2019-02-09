@@ -25,8 +25,10 @@ done
 install -v -dm755 "${SHED_FAKE_ROOT}${SHED_PKG_DEFAULTS_INSTALL_DIR}"/etc/{pam.d,security} &&
 install -v -m644 "${SHED_PKG_CONTRIB_DIR}"/* "${SHED_FAKE_ROOT}${SHED_PKG_DEFAULTS_INSTALL_DIR}"/etc/pam.d &&
 install -v -m644 "${SHED_FAKE_ROOT}"/etc/environment "${SHED_FAKE_ROOT}${SHED_PKG_DEFAULTS_INSTALL_DIR}"/etc &&
-install -v -m644 "${SHED_FAKE_ROOT}"/etc/security/* "${SHED_FAKE_ROOT}${SHED_PKG_DEFAULTS_INSTALL_DIR}"/etc/security &&
-rm -rf "${SHED_FAKE_ROOT}"/etc || exit 1
+install -v -m644 "${SHED_FAKE_ROOT}"/etc/security/{access,group,limits,namespace,pam_env,time}.conf "${SHED_FAKE_ROOT}${SHED_PKG_DEFAULTS_INSTALL_DIR}"/etc/security &&
+install -v -m644 "${SHED_FAKE_ROOT}"/etc/security/namespace.init "${SHED_FAKE_ROOT}${SHED_PKG_DEFAULTS_INSTALL_DIR}"/etc/security &&
+rm -rf "${SHED_FAKE_ROOT}"/etc &&
+install -v -dm755 "${SHED_FAKE_ROOT}"/etc/pam.d "${SHED_FAKE_ROOT}"/etc/security/{limits.d,namespace.d} || exit 1
 
 # Prune Documentation
 if [ -z "${SHED_PKG_LOCAL_OPTIONS[docs]}" ]; then
