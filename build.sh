@@ -27,9 +27,9 @@ install -v -m644 "${SHED_PKG_CONTRIB_DIR}/system-account" "${SHED_FAKE_ROOT}${SH
 install -v -m644 "${SHED_PKG_CONTRIB_DIR}/system-auth" "${SHED_FAKE_ROOT}${SHED_PKG_DEFAULTS_INSTALL_DIR}/etc/pam.d" &&
 install -v -m644 "${SHED_PKG_CONTRIB_DIR}/system-password" "${SHED_FAKE_ROOT}${SHED_PKG_DEFAULTS_INSTALL_DIR}/etc/pam.d" || exit 1
 if [ -n "${SHED_PKG_LOCAL_OPTIONS[bootstrap]}" ]; then
-    install -v -m644 "${SHED_PKG_CONTRIB_DIR}/system-session-bootstrap" "${SHED_FAKE_ROOT}${SHED_PKG_DEFAULTS_INSTALL_DIR}/etc/pam.d" || exit 1
+    install -v -m644 "${SHED_PKG_CONTRIB_DIR}/system-session-bootstrap" "${SHED_FAKE_ROOT}${SHED_PKG_DEFAULTS_INSTALL_DIR}/etc/pam.d/system-session" || exit 1
 else
-    install -v -m644 "${SHED_PKG_CONTRIB_DIR}/system-session-release" "${SHED_FAKE_ROOT}${SHED_PKG_DEFAULTS_INSTALL_DIR}/etc/pam.d" || exit 1
+    install -v -m644 "${SHED_PKG_CONTRIB_DIR}/system-session-release" "${SHED_FAKE_ROOT}${SHED_PKG_DEFAULTS_INSTALL_DIR}/etc/pam.d/system-session" || exit 1
 fi
 # Prune Documentation
 if [ -z "${SHED_PKG_LOCAL_OPTIONS[docs]}" ]; then
