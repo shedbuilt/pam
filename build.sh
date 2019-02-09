@@ -22,15 +22,12 @@ do
 done
 
 # Install Defaults
-install -v -Dm644 "${SHED_PKG_CONTRIB_DIR}/other" "${SHED_FAKE_ROOT}${SHED_PKG_DEFAULTS_INSTALL_DIR}/etc/pam.d/other" &&
-install -v -m644 "${SHED_PKG_CONTRIB_DIR}/system-account" "${SHED_FAKE_ROOT}${SHED_PKG_DEFAULTS_INSTALL_DIR}/etc/pam.d" &&
-install -v -m644 "${SHED_PKG_CONTRIB_DIR}/system-auth" "${SHED_FAKE_ROOT}${SHED_PKG_DEFAULTS_INSTALL_DIR}/etc/pam.d" &&
-install -v -m644 "${SHED_PKG_CONTRIB_DIR}/system-password" "${SHED_FAKE_ROOT}${SHED_PKG_DEFAULTS_INSTALL_DIR}/etc/pam.d" || exit 1
-if [ -n "${SHED_PKG_LOCAL_OPTIONS[bootstrap]}" ]; then
-    install -v -m644 "${SHED_PKG_CONTRIB_DIR}/system-session-bootstrap" "${SHED_FAKE_ROOT}${SHED_PKG_DEFAULTS_INSTALL_DIR}/etc/pam.d/system-session" || exit 1
-else
-    install -v -m644 "${SHED_PKG_CONTRIB_DIR}/system-session-release" "${SHED_FAKE_ROOT}${SHED_PKG_DEFAULTS_INSTALL_DIR}/etc/pam.d/system-session" || exit 1
-fi
+install -v -dm755 "${SHED_FAKE_ROOT}${SHED_PKG_DEFAULTS_INSTALL_DIR}"/etc/{pam.d,security} &&
+install -v -m644 "${SHED_PKG_CONTRIB_DIR}"/* "${SHED_FAKE_ROOT}${SHED_PKG_DEFAULTS_INSTALL_DIR}"/etc/pam.d &&
+install -v -m644 "${SHED_FAKE_ROOT}"/etc/environment "${SHED_FAKE_ROOT}${SHED_PKG_DEFAULTS_INSTALL_DIR}"/etc &&
+install -v -m644 "${SHED_FAKE_ROOT}"/etc/security/* "${SHED_FAKE_ROOT}${SHED_PKG_DEFAULTS_INSTALL_DIR}"/etc/security &&
+rm -rf "${SHED_FAKE_ROOT}"/etc || exit 1
+
 # Prune Documentation
 if [ -z "${SHED_PKG_LOCAL_OPTIONS[docs]}" ]; then
     rm -rf "${SHED_FAKE_ROOT}${SHED_PKG_DOCS_INSTALL_DIR}"
